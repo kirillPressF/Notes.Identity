@@ -61,6 +61,7 @@ namespace Notes.Identity
                         "notes.api"
                     },
                     AllowedCorsOrigins = {"https://localhost:5002"},
+                    AllowAccessTokensViaBrowser = true,
                 }
             };
     }
