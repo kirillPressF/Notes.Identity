@@ -1,5 +1,8 @@
 using Duende.IdentityServer.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Notes.Identity;
+using Notes.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,10 +10,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 //IdentityServer
 builder.Services.AddIdentityServer()
-    .AddInMemoryApiResources(new List<ApiResource>())
-    .AddInMemoryIdentityResources(new List<IdentityResource>())
-    .AddInMemoryApiScopes(new List<ApiScope>())
-    .AddInMemoryClients(new List<Client>());
+    .AddInMemoryApiResources(Configuration.GetApiResources())
+    .AddInMemoryIdentityResources(Configuration.GetIdentityResources())
+    .AddInMemoryApiScopes(Configuration.GetApiScopes())
+    .AddInMemoryClients(Configuration.GetClients());
+
+//db context postgres
+builder.Services.AddDbContext<AuthDbContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("IdentityDbContext"));
+});
 
 
 builder.Services.AddControllers();

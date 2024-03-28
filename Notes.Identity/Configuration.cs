@@ -7,7 +7,7 @@ namespace Notes.Identity
 
     public class Configuration
     {
-        public static IEnumerable<ApiScope> GetApiScope() =>
+        public static IEnumerable<ApiScope> GetApiScopes() =>
             new List<ApiScope>
             {
                 new ApiScope("notes.api", "Notes API")
@@ -30,7 +30,7 @@ namespace Notes.Identity
                 }
             };
 
-        public static IEnumerable<Client> Get() =>
+        public static IEnumerable<Client> GetClients() =>
             new List<Client>
             {
                 new Client
@@ -52,7 +52,7 @@ namespace Notes.Identity
                         "https://localhost:5002/signout-callback-oidc"
                     },
                     FrontChannelLogoutUri = "https://localhost:5002/signout-oidc",
-
+                     
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
